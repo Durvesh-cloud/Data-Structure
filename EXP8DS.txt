@@ -1,0 +1,134 @@
+
+
+Experiment No. 8
+
+Objective:
+1) Understand how to implement a BST using a predefined BST ADT.
+2) Understand the method of counting the number of nodes of a binary tree.
+
+Theory:
+A binary tree is a finite set of elements that is either empty or partitioned into disjointsubsets.
+In other words node in a binary tree has at most two children and each child node isreferred as left or right child.
+Traversals in tree can be in one of the three ways : preorder, postorder, inorder.
+
+Preorder Traversal
+Here the following strategy is followed in sequence
+1. Visit the root node R
+2. Traverse the left subtree of R
+3. Traverse the right sub tree of R
+
+
+Algorithm: PREORDER(ROOT)
+Input : Root is a pointer to root node of binary tree
+Output : Visiting all the nodes in preorder fashion.
+Description : Linked structure of binary tree
+1. ptr=ROOT
+2. if ptr!=NULL then
+visit(ptr)
+PREORDER(LSON(ptr))\
+PREORDER(RSON(ptr))
+End if
+3. Stop
+
+Algorithm: INORDER(ROOT)
+Input : Root is a pointer to root node of binary tree
+Output : Visiting all the nodes in inorder fashion.
+Description : Linked structure of binary tree
+
+1. ptr=ROOT
+2. if ptr!=NULL then
+INORDER (LSON(ptr))
+visit(ptr)
+INORDER (RSON(ptr))
+End if
+3. Stop
+
+Algorithm: POSTORDER(ROOT)
+Input : Root is a pointer to root node of binary tree
+Output : Visiting all the nodes in postorder fashion.
+Description : Linked structure of binary tree
+
+1. ptr=ROOT
+2. if ptr!=NULL then
+PREORDER(LSON(ptr))
+PREORDER(RSON(ptr))
+visit(ptr)
+End if
+3. Stop
+
+Code : 
+// C program for different tree traversals
+#include <stdio.h>
+#include <stdlib.h>
+
+// A binary tree node has data, pointer to left child
+// and a pointer to right child
+struct node {
+	int data;
+	struct node* left;
+	struct node* right;
+};
+
+// Helper function that allocates a new node with the
+// given data and NULL left and right pointers.
+struct node* newNode(int data)
+{
+	struct node* node
+		= (struct node*)malloc(sizeof(struct node));
+	node->data = data;
+	node->left = NULL;
+	node->right = NULL;
+
+	return (node);
+}
+
+// Given a binary tree, print its nodes in preorder
+void printPreorder(struct node* node)
+{
+	if (node == NULL)
+		return;
+
+	// First print data of node
+	printf("%d ", node->data);
+
+	// Then recur on left subtree
+	printPreorder(node->left);
+
+	// Now recur on right subtree
+	printPreorder(node->right);
+}
+
+void printPostorder(struct node* node)
+{
+    if (node == NULL)
+        return;
+ 
+    // First recur on left subtree
+    printPostorder(node->left);
+ 
+    // Then recur on right subtree
+    printPostorder(node->right);
+ 
+    // Now deal with the node
+    printf("%d ", node->data);
+}
+
+int main()
+{
+	struct node* root = newNode(1);
+	root->left = newNode(2);
+	root->right = newNode(3);
+	root->left->left = newNode(4);
+	root->left->right = newNode(5);
+
+	// Function call
+	printf("Preorder traversal of binary tree is \n");
+	printPreorder(root);
+	printf("\n");
+	
+	printf("\nPostorder traversal of binary tree is \n");
+    printPostorder(root);
+ 
+	getchar();
+	return 0;
+}
